@@ -7,6 +7,8 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
+import { link } from '@/fields/link'
+
 export const Archive: Block = {
   slug: 'archive',
   interfaceName: 'ArchiveBlock',
@@ -26,6 +28,10 @@ export const Archive: Block = {
       }),
       label: 'Intro Content',
     },
+    link({
+      appearances: false,
+      required: false,
+    }),
     {
       name: 'populateBy',
       type: 'select',

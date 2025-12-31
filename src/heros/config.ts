@@ -35,6 +35,10 @@ export const hero: Field = {
           label: 'Low Impact',
           value: 'lowImpact',
         },
+        {
+          label: 'Carousel',
+          value: 'carousel',
+        },
       ],
       required: true,
     },
@@ -58,6 +62,50 @@ export const hero: Field = {
         maxRows: 2,
       },
     }),
+    {
+      name: 'slides',
+      type: 'array',
+      admin: {
+        condition: (_, { type } = {}) => type === 'carousel',
+      },
+      fields: [
+        {
+          name: 'media',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+          label: 'Slide Image',
+        },
+        {
+          name: 'badge',
+          type: 'text',
+          label: 'Badge Text (e.g., "NEW")',
+        },
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          label: 'Slide Title',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Slide Description',
+        },
+        {
+          name: 'buttonText',
+          type: 'text',
+          label: 'Button Text',
+        },
+        {
+          name: 'buttonLink',
+          type: 'text',
+          label: 'Button Link',
+        },
+      ],
+      label: 'Carousel Slides',
+      minRows: 1,
+    },
     {
       name: 'media',
       type: 'upload',

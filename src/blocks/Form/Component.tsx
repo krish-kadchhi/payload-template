@@ -17,6 +17,8 @@ export type FormBlockType = {
   enableIntro: boolean
   form: FormType
   introContent?: DefaultTypedEditorState
+  enableSideContent?: boolean
+  sideContent?: DefaultTypedEditorState
 }
 
 export const FormBlock: React.FC<
@@ -29,6 +31,8 @@ export const FormBlock: React.FC<
     form: formFromProps,
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
     introContent,
+    enableSideContent,
+    sideContent,
   } = props
 
   const formMethods = useForm({
@@ -112,6 +116,70 @@ export const FormBlock: React.FC<
     },
     [router, formID, redirect, confirmationType],
   )
+
+  if (enableSideContent) {
+    return (
+      <div className="w-full py-16" style={{ backgroundColor: '#d7b7d4' }}>
+        <div className="container lg:max-w-[70rem]">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div className="text-white prose-headings:text-white prose-p:text-white prose-a:text-white">
+              {sideContent && <RichText data={sideContent} enableGutter={false} />}
+            </div>
+            <div
+              style={
+                {
+                  '--border': '0 0% 100%',
+                  '--input': 'transparent',
+                  '--ring': '255 255 255',
+                  '--foreground': '0 0% 100%',
+                  '--muted-foreground': '0 0% 90%',
+                  '--background': 'transparent',
+                } as React.CSSProperties
+              }
+            >
+              <FormProvider {...formMethods}>
+                {!isLoading && hasSubmitted && confirmationType === 'message' && (
+                  <RichText data={confirmationMessage} />
+                )}
+                {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
+                {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
+                {!hasSubmitted && (
+                  <form id={formID} onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mb-4 last:mb-0">
+                      {formFromProps &&
+                        formFromProps.fields &&
+                        formFromProps.fields?.map((field, index) => {
+                          const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
+                          if (Field) {
+                            return (
+                              <div className="mb-6 last:mb-0" key={index}>
+                                <Field
+                                  form={formFromProps}
+                                  {...field}
+                                  {...formMethods}
+                                  control={control}
+                                  errors={errors}
+                                  register={register}
+                                />
+                              </div>
+                            )
+                          }
+                          return null
+                        })}
+                    </div>
+
+                    <Button form={formID} type="submit" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+                      {submitButtonLabel}
+                    </Button>
+                  </form>
+                )}
+              </FormProvider>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="container lg:max-w-[48rem]">

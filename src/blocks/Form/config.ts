@@ -40,6 +40,29 @@ export const FormBlock: Block = {
       }),
       label: 'Intro Content',
     },
+    {
+      name: 'enableSideContent',
+      type: 'checkbox',
+      label: 'Enable Side Content',
+    },
+    {
+      name: 'sideContent',
+      type: 'richText',
+      admin: {
+        condition: (_, { enableSideContent }) => Boolean(enableSideContent),
+      },
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ]
+        },
+      }),
+      label: 'Side Content',
+    },
   ],
   graphQL: {
     singularName: 'FormBlock',

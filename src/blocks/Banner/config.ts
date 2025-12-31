@@ -6,6 +6,8 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
+import { link } from '@/fields/link'
+
 export const Banner: Block = {
   slug: 'banner',
   fields: [
@@ -32,6 +34,14 @@ export const Banner: Block = {
       label: false,
       required: true,
     },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    link({
+      appearances: false,
+    }),
   ],
   interfaceName: 'BannerBlock',
 }

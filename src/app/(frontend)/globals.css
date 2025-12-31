@@ -50,7 +50,7 @@
   }
 
   [data-theme='dark'] {
-    --background: 0 0% 0%;
+    --background: #d7b7d4;
     --foreground: 210 40% 98%;
 
     --card: 0 0% 4%;

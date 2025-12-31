@@ -10,6 +10,51 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'accentColor',
+      type: 'text',
+      label: 'Accent color',
+      defaultValue: '#c9a1bd',
+      admin: {
+        description: 'Hex color used for borders, links, and icons',
+      },
+      validate: (value) => {
+        if (!value) return 'Please provide an accent color'
+        return /^#([0-9a-f]{3}){1,2}$/i.test(value) || 'Use a hex value like #c9a1bd'
+      },
+    },
+    {
+      name: 'brand',
+      type: 'group',
+      label: 'Branding',
+      admin: {
+        description: 'Logo and text shown on the left side of the header',
+      },
+      fields: [
+        {
+          name: 'logo',
+          type: 'upload',
+          relationTo: 'media',
+        },
+        // {
+        //   name: 'logoAlt',
+        //   type: 'text',
+        //   label: 'Logo alt text',
+        // },
+        // {
+        //   name: 'title',
+        //   type: 'text',
+        //   defaultValue: 'MARIELA',
+        //   label: 'Brand title',
+        // },
+        // {
+        //   name: 'subtitle',
+        //   type: 'text',
+        //   label: 'Tagline',
+        //   defaultValue: 'CUSHIONS',
+        // },
+      ],
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
@@ -23,6 +68,21 @@ export const Header: GlobalConfig = {
         components: {
           RowLabel: '@/Header/RowLabel#RowLabel',
         },
+      },
+    },
+    {
+      name: 'showCart',
+      type: 'checkbox',
+      label: 'Show cart icon',
+      defaultValue: true,
+    },
+    {
+      name: 'cartLink',
+      type: 'text',
+      label: 'Cart link',
+      defaultValue: '/cart',
+      admin: {
+        condition: (_, siblingData) => siblingData?.showCart !== false,
       },
     },
   ],
