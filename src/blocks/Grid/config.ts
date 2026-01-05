@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 import {
   FixedToolbarFeature,
   InlineToolbarFeature,
+  HorizontalRuleFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
@@ -58,7 +59,7 @@ export const Grid: Block = {
           type: 'richText',
           editor: lexicalEditor({
             features: ({ rootFeatures }) => {
-              return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
+              return [...rootFeatures, FixedToolbarFeature(), HorizontalRuleFeature(), InlineToolbarFeature()]
             },
           }),
           label: 'Content',
@@ -67,6 +68,15 @@ export const Grid: Block = {
             appearances: false,
             required:false
         }),
+        {
+          name: 'content after image',
+          type: 'richText',
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => {
+              return [...rootFeatures, FixedToolbarFeature(), HorizontalRuleFeature(), InlineToolbarFeature()]
+            },
+          }),
+        },
       ],
     },
   ],

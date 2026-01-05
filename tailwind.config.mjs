@@ -96,6 +96,7 @@ const config = {
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
         sans: ['var(--font-geist-sans)'],
+        cormorant: ['var(--font-cormorant)'],
       },
       keyframes: {
         'accordion-down': {
@@ -111,6 +112,7 @@ const config = {
         DEFAULT: {
           css: [
             {
+              fontFamily: 'var(--font-cormorant), sans-serif',
               '--tw-prose-body': 'var(--text)',
               '--tw-prose-headings': 'var(--text)',
               h1: {

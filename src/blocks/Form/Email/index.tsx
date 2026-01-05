@@ -29,6 +29,7 @@ export const Email: React.FC<
         defaultValue={defaultValue}
         id={name}
         type="text"
+        placeholder={label}
         {...register(name, { pattern: /^\S[^\s@]*@\S+$/, required })}
       />
 

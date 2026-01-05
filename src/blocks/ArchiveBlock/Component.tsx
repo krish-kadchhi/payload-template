@@ -54,10 +54,10 @@ export const ArchiveBlock: React.FC<
   }
 
   return (
-    <div className="my-16 py-16 text-black" id={`block-${id}`}>
+    <div className="px-4 mx-0 md:my-14 md:mx-10 md:px-8 text-black lg:my-16 lg:mx-20 lg:px-12 xl:my-16 xl:mx-24" id={`block-${id}`}>
       {introContent && (
         <div className="mx-auto max-w-[48rem]">
-          <RichText className="mx-auto ms-0 max-w-[48rem] text-center text-black" data={introContent} enableGutter={false} />
+          <RichText className="mx-auto ms-0 max-w-[48rem] text-center text-black [&_h3]:text-[#D1BACE] [&_h3]:font-serif" data={introContent} enableGutter={false} />
         </div>
       )}
       {link && (

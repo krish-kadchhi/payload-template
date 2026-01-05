@@ -504,6 +504,7 @@ export interface ContentBlock {
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+        image?: (number | null) | Media;
         richText?: {
           root: {
             type: string;
@@ -611,6 +612,9 @@ export interface ArchiveBlock {
  */
 export interface FormBlock {
   form: number | Form;
+  variant?: ('default' | 'newsletter') | null;
+  newsletterTitle?: string | null;
+  newsletterSubtitle?: string | null;
   enableIntro?: boolean | null;
   introContent?: {
     root: {
@@ -826,7 +830,7 @@ export interface Form {
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
+  style: 'first' | 'second' | 'info' | 'warning' | 'error' | 'success';
   content: {
     root: {
       type: string;
@@ -903,6 +907,21 @@ export interface GridBlock {
       url?: string | null;
       label?: string | null;
     };
+    'content after image'?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
     id?: string | null;
   }[];
   id?: string | null;
@@ -1278,6 +1297,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
     | T
     | {
         size?: T;
+        image?: T;
         richText?: T;
         enableLink?: T;
         link?:
@@ -1333,6 +1353,9 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  */
 export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
+  variant?: T;
+  newsletterTitle?: T;
+  newsletterSubtitle?: T;
   enableIntro?: T;
   introContent?: T;
   enableSideContent?: T;
@@ -1383,6 +1406,7 @@ export interface GridBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        'content after image'?: T;
         id?: T;
       };
   id?: T;

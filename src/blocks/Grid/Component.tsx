@@ -17,6 +17,7 @@ type Props = {
     price?: string
     content?: any
     link?: any
+    'content after image'?: any
   }>
 }
 
@@ -25,8 +26,8 @@ export const GridBlock: React.FC<Props> = ({ className, items, layout = 'feature
 
   if (layout === 'grid') {
     return (
-      <section className={cn('py-8 md:py-24', className)}>
-        <div className="container mx-auto px-4 md:px-0">
+      <section className={cn('py-8 md:py-10', className)}>
+        <div className="container mx-auto px-4 md:px-28">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
             {items.map((item) => {
               if (!item.image || typeof item.image !== 'object') return null
@@ -38,7 +39,7 @@ export const GridBlock: React.FC<Props> = ({ className, items, layout = 'feature
                   {hasLink ? (
                     <CMSLink {...item.link} label={null} appearance="inline" className="contents">
                       <div className="relative w-full aspect-square overflow-hidden bg-gray-100 mb-6">
-                          <Media resource={item.image} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                          <Media resource={item.image} fill imgClassName="object-cover transition-transform duration-500 group-hover:scale-105" />
                       </div>
                       {item.title && (
                         <h3 className="text-xl md:text-2xl text-primary font-serif mb-2">
@@ -49,7 +50,7 @@ export const GridBlock: React.FC<Props> = ({ className, items, layout = 'feature
                   ) : (
                     <>
                       <div className="relative w-full aspect-square overflow-hidden bg-gray-100 mb-6">
-                          <Media resource={item.image} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                          <Media resource={item.image} fill imgClassName="object-cover transition-transform duration-500 group-hover:scale-105" />
                       </div>
                       {item.title && (
                         <h3 className="text-xl md:text-2xl text-primary font-serif mb-2">
@@ -74,32 +75,33 @@ export const GridBlock: React.FC<Props> = ({ className, items, layout = 'feature
   }
 
   return (
-    <section className={cn('py-8 md:py-24', className)}>
-      <div className="container mx-auto px-4 md:px-0">
-        <div className="flex flex-col gap-12 md:gap-24">
+    <section className={cn('py-8 md:py-24 ', className)}>
+      <div className="container mx-auto px-4 md:px-20">
+        <div className="flex flex-col gap-12 md:gap-5
+        ">
           {items.map((item, index) => {
             if (!item.image || typeof item.image !== 'object') return null
             const isTextLeft = index % 2 === 0;
 
             return (
-              <div 
-                key={item.id} 
-                className={cn(
-                  "flex flex-col md:flex-row items-center gap-8 md:gap-16",
-                )}
-              >
+              <div key={item.id}>
+                <div 
+                  className={cn(
+                    "flex flex-col md:flex-row items-center gap-6 md:gap-20",
+                  )}
+                >
                   {/* Layout Option 1: Text Left, Image Right (Index 0) */}
                   {isTextLeft ? (
                       <>
-                        <div className="w-full md:w-1/2 order-2 md:order-1">
-                             <div className="max-w-lg mx-auto md:ml-0 md:mr-auto">
+                        <div className="max-w-[416] md:w-1/2 order-2 md:order-1">
+                             <div className="max-w-lg md:ml-0">
                                 {item.subtitle && (
-                                    <h6 className="uppercase tracking-widest text-xs md:text-sm font-bold text-[#AA94AA] mb-3 md:mb-4">
+                                    <h6 className="uppercase tracking-widest text-xs md:text-sm font-bold text-[#d6bbd3] mb-3 md:mb-4">
                                         {item.subtitle}
                                     </h6>
                                 )}
                                 {item.content && (
-                                  <div className="prose prose-sm md:prose-lg mb-6 text-gray-600">
+                                  <div className="prose prose-sm md:prose-lg mb-6 text-gray-600 grid-richtext">
                                       <RichText data={item.content} enableGutter={false} />
                                   </div>
                                 )}
@@ -115,7 +117,7 @@ export const GridBlock: React.FC<Props> = ({ className, items, layout = 'feature
 
                         <div className="w-full md:w-1/2 order-1 md:order-2 bg-[#D1BACE]/30 p-4 md:p-8">
                              <div className="relative aspect-[4/3] w-full h-full overflow-hidden shadow-lg">
-                                <Media resource={item.image} fill className="object-cover" />
+                                <Media resource={item.image} fill imgClassName="object-cover" />
                              </div>
                         </div>
                       </>
@@ -124,12 +126,12 @@ export const GridBlock: React.FC<Props> = ({ className, items, layout = 'feature
                      <>
                         <div className="w-full md:w-1/2 order-1 bg-[#D1BACE]/30 p-4 md:p-8">
                              <div className="relative aspect-[4/3] w-full h-full overflow-hidden shadow-lg">
-                                <Media resource={item.image} fill className="object-cover" />
+                                <Media resource={item.image} fill imgClassName="object-cover" />
                              </div>
                         </div>
 
                         <div className="w-full md:w-1/2 order-2">
-                             <div className="max-w-lg mx-auto md:ml-auto md:mr-0 pl-0 md:pl-8">
+                             <div className="max-w-lg md:px-4 md:pl-8">
                                 {item.subtitle && (
                                     <h6 className="uppercase tracking-widest text-xs md:text-sm font-bold text-[#AA94AA] mb-3 md:mb-4">
                                         {item.subtitle}
@@ -151,9 +153,19 @@ export const GridBlock: React.FC<Props> = ({ className, items, layout = 'feature
                         </div>
                      </>
                   )}
+                </div>
+                {item['content after image'] && (
+                  <div className="w-full mt-8 md:mt-16">
+                    <RichText 
+                      data={item['content after image']} 
+                      enableGutter={false} 
+                      className="max-w-none [&_hr]:border-[#D1BACE]/50"
+                    />
+                  </div>
+                )}
               </div>
-            )
-          })}
+          )
+        })}
         </div>
       </div>
     </section>

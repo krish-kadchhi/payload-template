@@ -17,7 +17,7 @@ export const Header: GlobalConfig = {
       admin: {
         description: 'Hex color used for borders, links, and icons',
       },
-      validate: (value) => {
+      validate: (value: string | null | undefined) => {
         if (!value) return 'Please provide an accent color'
         return /^#([0-9a-f]{3}){1,2}$/i.test(value) || 'Use a hex value like #c9a1bd'
       },
@@ -39,18 +39,21 @@ export const Header: GlobalConfig = {
         //   name: 'logoAlt',
         //   type: 'text',
         //   label: 'Logo alt text',
+        //   required: false
         // },
         // {
         //   name: 'title',
         //   type: 'text',
         //   defaultValue: 'MARIELA',
         //   label: 'Brand title',
+        //   required: false
         // },
         // {
         //   name: 'subtitle',
         //   type: 'text',
         //   label: 'Tagline',
         //   defaultValue: 'CUSHIONS',
+        //   required: false
         // },
       ],
     },

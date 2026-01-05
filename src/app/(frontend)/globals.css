@@ -88,8 +88,17 @@
   * {
     @apply border-border;
   }
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+  }
+
+  p {
+    font-family: var(--font-cormorant), sans-serif;
   }
 }
 
@@ -100,4 +109,14 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+.payload-richtext hr {
+  border: 0;
+  border-top: 1px solid #d7b7d4;
+  margin: 2rem 0;
+}
+
+.grid-richtext a {
+  @apply uppercase tracking-widest text-xs md:text-sm font-bold border border-gray-300 rounded-full px-5 py-2.5 md:px-6 md:py-3 hover:bg-gray-100 transition-colors inline-block no-underline mt-4;
 }

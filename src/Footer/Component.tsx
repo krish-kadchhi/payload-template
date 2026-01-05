@@ -14,51 +14,43 @@ export async function Footer() {
   const footerLogo = footerData?.logo
 
   return (
-    <footer className="mt-auto bg-[#d7b7d4] text-primary-foreground">
-      <div className="container flex flex-col items-center gap-8 py-10 md:flex-row md:justify-between">
+    <footer className="mt-auto bg-[#c9adc6] text-primary-foreground">
+      <div className="container px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-8 py-10">
         
-        {/* ✅ Footer Logo from Payload */}
-        <Link href="/" className="flex items-center gap-2">
-          {footerLogo && (
-            <Image
-              src={footerLogo.url}
-              alt={footerLogo.alt || 'Footer logo'}
-              width={140}
-              height={40}
-              className="h-10 w-auto object-contain"
-            />
-          )}
-        </Link>
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 w-full md:w-auto">
+          {/* ✅ Footer Logo from Payload */}
+          <Link href="/" className="flex items-center gap-2">
+            {footerLogo && (
+              <Image
+                src={footerLogo.url}
+                alt={footerLogo.alt || 'Footer logo'}
+                width={140}
+                height={40}
+                className="h-10 w-auto object-contain"
+              />
+            )}
+          </Link>
 
-        {/* ✅ Navigation */}
-        <nav className="flex flex-wrap items-center justify-center gap-8 text-lg font-serif tracking-wide">
-          {navItems.map((item, i) => {
-            const { link, logo } = item
+          {/* ✅ Navigation */}
+          <nav className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-lg font-serif tracking-wide">
+            {navItems.map((item, i) => {
+              const { link } = item
 
-            return (
-              <div key={i} className="flex items-center gap-2">
-                {logo && (
-                  <Image
-                    src={logo.url}
-                    alt={logo.alt || link.label}
-                    width={18}
-                    height={18}
-                    className="h-5 w-5 object-contain"
+              return (
+                <div key={i} className="flex items-center gap-2">
+                  <CMSLink
+                    {...link}
+                    appearance="inline"
+                    className="transition-opacity hover:opacity-80"
                   />
-                )}
-
-                <CMSLink
-                  {...link}
-                  appearance="inline"
-                  className="transition-opacity hover:opacity-80"
-                />
-              </div>
-            )
-          })}
-        </nav>
+                </div>
+              )
+            })}
+          </nav>
+        </div>
 
         {/* ✅ Social Icons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 mt-4 md:mt-0">
           <a
             href="#"
             aria-label="Facebook"

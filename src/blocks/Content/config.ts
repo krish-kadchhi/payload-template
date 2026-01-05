@@ -3,6 +3,7 @@ import type { Block, Field } from 'payload'
 import {
   FixedToolbarFeature,
   HeadingFeature,
+  HorizontalRuleFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
@@ -34,6 +35,12 @@ const columnFields: Field[] = [
     ],
   },
   {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    required: false,
+  },
+  {
     name: 'richText',
     type: 'richText',
     editor: lexicalEditor({
@@ -41,6 +48,7 @@ const columnFields: Field[] = [
         return [
           ...rootFeatures,
           HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+          HorizontalRuleFeature(),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
         ]

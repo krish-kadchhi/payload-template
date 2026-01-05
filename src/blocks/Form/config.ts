@@ -18,6 +18,40 @@ export const FormBlock: Block = {
       required: true,
     },
     {
+      name: 'variant',
+      type: 'select',
+      defaultValue: 'default',
+      options: [
+        {
+          label: 'Default',
+          value: 'default',
+        },
+        {
+          label: 'Newsletter',
+          value: 'newsletter',
+        },
+      ],
+      label: 'Variant',
+    },
+    {
+      name: 'newsletterTitle',
+      type: 'text',
+      admin: {
+        condition: (_, { variant }) => variant === 'newsletter',
+      },
+      defaultValue: 'Newsletter',
+      label: 'Newsletter Title',
+    },
+    {
+      name: 'newsletterSubtitle',
+      type: 'text',
+      admin: {
+        condition: (_, { variant }) => variant === 'newsletter',
+      },
+      defaultValue: 'Get promotions & updates!',
+      label: 'Newsletter Subtitle',
+    },
+    {
       name: 'enableIntro',
       type: 'checkbox',
       label: 'Enable Intro Content',
